@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 
 class RequestsListPage extends StatelessWidget {
+  final List<String> requests;
+
+  const RequestsListPage({super.key, required this.requests});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List of Requests'),
+        title: const Text('List of Requests'),
       ),
-      body: Center(
-        child: Text('Here all submitted requests will be displayed.'),
-      ),
+      body: requests.isEmpty
+        ? Center(child: Text("No requests found."))
+        : ListView.builder(
+            itemCount: requests.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(requests[index]),
+              );
+            },
+          ),
     );
   }
 }
