@@ -1,14 +1,43 @@
 import 'package:flutter/material.dart';
 
-class RequestFormPage extends StatelessWidget {
+class RequestFormPage extends StatefulWidget {
+  final Function(String) onSubmit;
+
+  RequestFormPage({required this.onSubmit});
+
+  @override
+  _RequestFormPageState createState() => _RequestFormPageState();
+}
+
+class _RequestFormPageState extends State<RequestFormPage> {
+  final _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Submit a Request'),
       ),
-      body: Center(
-        child: Text('Form to submit a new maintenance request.'),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(labelText: 'Enter your request'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                if (_controller.text.isNotEmpty) {
+                  widget.onSubmit(_controller.text);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text('Submit Request'),
+            )
+          ],
+        ),
       ),
     );
   }
