@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RequestFormPage extends StatefulWidget {
-  final Function(String) onSubmit;
+  final Function(String, String, String) onSubmit;
 
   RequestFormPage({required this.onSubmit});
 
@@ -10,7 +10,9 @@ class RequestFormPage extends StatefulWidget {
 }
 
 class _RequestFormPageState extends State<RequestFormPage> {
-  final _controller = TextEditingController();
+  final _requestController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _contactController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,31 @@ class _RequestFormPageState extends State<RequestFormPage> {
         child: Column(
           children: [
             TextField(
-              controller: _controller,
+              controller: _nameController,
+              decoration: InputDecoration(labelText: 'Enter your name'),
+            ),
+            SizedBox(height: 8),
+            TextField(
+              controller: _contactController,
+              decoration: InputDecoration(labelText: 'Enter your contact number'),
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(height: 8),
+            TextField(
+              controller: _requestController,
               decoration: InputDecoration(labelText: 'Enter your request'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                if (_controller.text.isNotEmpty) {
-                  widget.onSubmit(_controller.text);
+                if (_requestController.text.isNotEmpty &&
+                    _nameController.text.isNotEmpty &&
+                    _contactController.text.isNotEmpty) {
+                  widget.onSubmit(
+                    _nameController.text,
+                    _contactController.text,
+                    _requestController.text,
+                  );
                   Navigator.pop(context);
                 }
               },
