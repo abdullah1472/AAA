@@ -10,9 +10,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<String> _requests = [];
 
-  void _addRequest(String request) {
+  void _addRequest(String name, String contact, String request) {
     setState(() {
-      _requests.add(request);
+      _requests.add("$name - $contact - $request");
     });
   }
 
@@ -27,6 +27,11 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                onPrimary: Colors.white,
+                textStyle: TextStyle(fontSize: 16),
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -35,7 +40,13 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text('Submit New Request'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                onPrimary: Colors.white,
+                textStyle: TextStyle(fontSize: 16),
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
